@@ -64,75 +64,60 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { ref, computed } from "vue";
 
-export default {
-  setup() {
-    const name = ref("");
-    const objet = ref(""); // Ajout de l'objet
-    const email = ref("");
-    const message = ref("");
-    const submissionStatus = ref(null);
-    const submissionMessage = ref("");
+const name = ref("");
+const objet = ref(""); // Ajout de l'objet
+const email = ref("");
+const message = ref("");
+const submissionStatus = ref(null);
+const submissionMessage = ref("");
 
-    const submissionStatusClass = computed(() => {
-      if (submissionStatus.value === "success") {
-        return "success";
-      } else if (submissionStatus.value === "error") {
-        return "error";
-      }
-      return "";
-    });
+const submissionStatusClass = computed(() => {
+  if (submissionStatus.value === "success") {
+    return "success";
+  } else if (submissionStatus.value === "error") {
+    return "error";
+  }
+  return "";
+});
 
-    const handleSubmit = async () => {
-      try {
-        // Simuler l'envoi d'email (à remplacer par votre code réel)
-        console.log(
-          "Envoi du formulaire:",
-          name.value,
-          objet.value, // Inclure l'objet dans le log
-          email.value,
-          message.value
-        );
-        // **Remplacez ceci par votre logique d'envoi de formulaire réelle**
-        // Par exemple, utiliser une API comme EmailJS, Netlify Forms, ou votre propre backend.
-        await simulateEmailSend(); // Simulateur pour le démo
+const handleSubmit = async () => {
+  try {
+    // Simuler l'envoi d'email (à remplacer par votre code réel)
+    console.log(
+      "Envoi du formulaire:",
+      name.value,
+      objet.value, // Inclure l'objet dans le log
+      email.value,
+      message.value
+    );
+    // **Remplacez ceci par votre logique d'envoi de formulaire réelle**
+    // Par exemple, utiliser une API comme EmailJS, Netlify Forms, ou votre propre backend.
+    await simulateEmailSend(); // Simulateur pour le démo
 
-        submissionStatus.value = "success";
-        submissionMessage.value = "Votre message a été envoyé avec succès !";
-        resetForm();
-      } catch (error) {
-        console.error("Erreur lors de l'envoi:", error);
-        submissionStatus.value = "error";
-        submissionMessage.value =
-          "Une erreur s'est produite lors de l'envoi. Veuillez réessayer.";
-      }
-    };
+    submissionStatus.value = "success";
+    submissionMessage.value = "Votre message a été envoyé avec succès !";
+    resetForm();
+  } catch (error) {
+    console.error("Erreur lors de l'envoi:", error);
+    submissionStatus.value = "error";
+    submissionMessage.value =
+      "Une erreur s'est produite lors de l'envoi. Veuillez réessayer.";
+  }
+};
 
-    const simulateEmailSend = () => {
-      //Simulateur asynchrone pour l'envoi d'un courriel.
-      return new Promise((resolve) => setTimeout(resolve, 1000));
-    };
+const simulateEmailSend = () => {
+  //Simulateur asynchrone pour l'envoi d'un courriel.
+  return new Promise((resolve) => setTimeout(resolve, 1000));
+};
 
-    const resetForm = () => {
-      name.value = "";
-      objet.value = ""; // Réinitialiser l'objet
-      email.value = "";
-      message.value = "";
-    };
-
-    return {
-      name,
-      objet, // Retourner l'objet
-      email,
-      message,
-      submissionStatus,
-      submissionMessage,
-      submissionStatusClass,
-      handleSubmit,
-    };
-  },
+const resetForm = () => {
+  name.value = "";
+  objet.value = ""; // Réinitialiser l'objet
+  email.value = "";
+  message.value = "";
 };
 </script>
 

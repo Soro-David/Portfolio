@@ -1,105 +1,81 @@
-<template>    
+<template>
+  <nav class="navbar">
+    <ul>
+      <li v-for="(item, index) in menuItems" :key="index">
+        <router-link
+          :to="item.path"
+          class="navbar-link"
+          :class="{ active: route.path === item.path }"
+        >
+          {{ item.label }}
+        </router-link>
+      </li>
+    </ul>
+  </nav>
+</template>
 
+<script setup>
+import { computed } from "vue";
+import { useRoute } from "vue-router";
 
+// Récupérer la route active
+const route = useRoute();
 
-    <!-- le Menu et le le logo -->
-        <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-            <header class="top_bar">
-                <div class="top_menu--aside">
-                    <a href="/" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-                        <!-- un H2 sous forme de logo pour le site -->
-                        <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>Soro.D.David</h2>
-                    </a>
-                    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                 </div>
-            </header>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div id="Menu" class="text-center">
-                  <div class="navbar-nav ms-auto p-4 p-lg-0">
-                    <!-- router-link permet de lier la page -->
-                    <router-link to="/"><li><a class="nav-item nav-link">Accueil</a></li></router-link>
-                    <router-link to="/about"><li><a class="nav-item nav-link">A Propos de Moi</a></li></router-link>
-                    <router-link to="/aboutp"><li><a class="nav-item nav-link">Projet Auquel J'ai Participé</a></li></router-link>
-                    <router-link to="/contact"><li><a class="nav-item nav-link">Me contacter</a></li></router-link>
-                    
-                    
-                </div>
-                <div>
-                </div>
-                </div>
-               
-            </div>
-        </nav>
-        <router-view/>
-    
-    </template>
-    
-    <script setup>
-    
-    
-    //import { count } from '../views/page/ServicePage.vue';
-     
-    
-        //count.value++
-    
-    
-        
-       // const imageSrc = '/images/OIP.png'; // Chemin relatif depuis le dossier public
-    
-    </script>
-    
-    <style scoped>
-    
-    
-    /*
-    le style pour l'image
-    width pour la largeur et height pour la hauteur et pardding pour l'espace a l'interieur
-    */
-    
-     img{
-        width: 50px;
-        height: 40px;
-        padding: auto 20px;
-        
-    }
-    
-    
-    /* Utilise flex pour aligner les éléments horizontalement et centrer le contenu
-    justifier-cnter pour la position des element du menu
-    
-    */
-    #Menu{
-        list-style: none;
-        display: flex;
-        justify-content: center;
-        padding: 70px;
-    
-    /* Définition de la couleur de fond du corps */
-    
-    
-    }
-    #Menu li{
-        margin: 0 30px;
-    }
-    
-    
-    
-    
-    #Menu a {
-        text-decoration: none;
-        color: #160606;
-        font-weight: bold;
-        transition: color 0.3s ease;
-    }
-    
-    
-    /* Définit le style des liens, incluant la couleur, la graisse de police,
-     et l'effet de transition sur le survol (hover) */
-    #Menu a:hover {
-        color: #3109e6;
-    }
-       
-    
-    </style>
+// Définir les éléments du menu
+const menuItems = computed(() => [
+  { path: "/", label: "Accueil" },
+  { path: "/a-propos", label: "A Propos de moi" },
+  { path: "/projets", label: "Projets réalisés" },
+  { path: "/contact", label: "Me contacter" },
+]);
+</script>
+
+<style scoped>
+.navbar {
+  background-color: #f8f9fa;
+  padding: 10px 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  position: sticky; /* Optionnel: rend le menu fixe en haut */
+  top: 0;
+  z-index: 100; /* Assure que le menu est au-dessus des autres éléments */
+  display: flex; /* Ajout pour centrer le menu */
+  justify-content: center; /* Ajout pour centrer le menu */
+}
+
+.navbar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex; /* Important pour aligner les éléments horizontalement */
+  /* justify-content: space-around;  */ /* Supprimé, le centrage se fait sur le container */
+  align-items: center; /* Aligne verticalement au centre, si nécessaire */
+}
+
+.navbar li {
+  margin-right: 20px; /* Espacement entre les éléments (ajuster selon besoin) */
+}
+
+/* Enlève la marge à droite du dernier élément */
+.navbar li:last-child {
+  margin-right: 0;
+}
+
+.navbar-link {
+  display: block;
+  padding: 8px 15px;
+  text-decoration: none;
+  color: #333;
+  border-radius: 4px;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+.navbar-link:hover {
+  background-color: #e2e6ea;
+}
+
+.navbar-link.active {
+  background-color: #007bff;
+  color: white;
+  font-weight: bold;
+}
+</style>

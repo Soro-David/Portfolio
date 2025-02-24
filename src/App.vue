@@ -1,18 +1,15 @@
 <template>
- 
-  <CompMenu/>
-  <PiedPage/>
- 
+  <CompMenu />
 
+  <RouterView />
+
+  <PiedPage />
 </template>
 
 <script setup>
-import CompMenu from './components/CompMenu.vue';
-import PiedPage from './components/PiedPage.vue'
-
-
+import { RouterView } from "vue-router";
+import CompMenu from "./components/CompMenu.vue";
+import PiedPage from "./components/PiedPage.vue";
 </script>
 
-<style >
-
-</style>
+<style></style>
